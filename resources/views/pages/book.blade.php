@@ -16,11 +16,8 @@
                     {{__('words.trip-price')}}
                 </label>
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="image" id="tpps">
-                    {{$trip->pricesy}}
-                </label><span class="block text-gray-700 text-sm font-bold mb-2">SY</span>
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="image" id="tppss">
-                    {{$trip->priceusd}}
-                </label><span class="block text-gray-700 text-sm font-bold mb-2">USD</span>
+                    Trip Price:{{$trip->price}}
+                </label>
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="image" id="tpps">
                     Trip Available Seats:{{$available_seats}}
                 </label>
@@ -44,22 +41,13 @@
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="category">
-                    Choose Payment Currency
-                </label>
-                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cur" name="currency">
-                    <option value="SY">SY</option> 
-                    <option value="USD">USD</option>     
-                </select>
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="category">
                     Choose How To Pay
                 </label>
                 <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="type" name="payment">
                     <option>Cash</option>
                     <option>Syriatel Cash</option>
                     <option>MTN Cash</option>
-                    <option>Credit Card</option>
+                    <!-- <option>Credit Card</option> -->
                 </select>
             </div>
             <div class="mb-4">

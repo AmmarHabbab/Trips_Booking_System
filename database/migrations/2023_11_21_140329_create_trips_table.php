@@ -19,7 +19,6 @@ return new class extends Migration
             $table->geometry('location')->nullable();
             $table->string('area');
             $table->integer('seats');
-            $table->double('priceusd');
             $table->double('pricesy');
             $table->enum('status',['res_open','res_over','ongoing','over','canceled'])->default('res_open');
             $table->unsignedBigInteger('hotel_id')->nullable();

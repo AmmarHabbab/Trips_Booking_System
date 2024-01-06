@@ -50,8 +50,7 @@ class TripController extends Controller
             'image' => 'required|mimes:jpeg,jpg,gif,svg,png|max:4096',
             'area' => 'required',
             'seats' => 'required|numeric',
-            'priceusd' => 'required|numeric',
-            'pricesy' => 'required|numeric',
+            'price' => 'required|numeric',
         ]);
 
         $img = $request->file('image');
@@ -69,8 +68,7 @@ class TripController extends Controller
         $trip->image = $path;
         $trip->area = $request->area;
         $trip->seats = $request->seats;
-        $trip->priceusd = $request->priceusd;
-        $trip->pricesy = $request->pricesy;
+        $trip->price = $request->price;
         // if($request->translatername != "Select A translater if Need one!")
         // {
             
@@ -212,7 +210,7 @@ class TripController extends Controller
             <input type="hidden" name="_token" value="' . csrf_token() . '">
             </form>';
         })
-        ->rawColumns(['name','info','area','seats','seats_taken','status','priceusd','pricesy','start_date','expiry_date','action']) //,'action'
+        ->rawColumns(['name','info','area','seats','seats_taken','status','price','start_date','expiry_date','action']) //,'action'
         ->make(true);
     }
 

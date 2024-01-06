@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Str;
 use App\Models\CategoryTranslation;
 use Yajra\DataTables\Facades\DataTables;
+use Auth;
 
 class CategoryController extends Controller
 {
@@ -15,8 +16,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-       $categories = Category::all();
-       return response()->json($categories);
+    //    $categories = Category::all();
+    //    return response()->json($categories);
     }
 
     /**
@@ -47,6 +48,7 @@ class CategoryController extends Controller
         $category->image = $path;
         $category->name = $request->name;
         $category->desc = $request->desc;
+        $category->user_id = Auth::id();
         $category->save();
 
 

@@ -28,8 +28,7 @@
                     <p class="pb-3">Number of seats:{{$trip->seats}}</p>
                     <p class="pb-3">Number of seats taken:{{$trip->seats_taken}}</p>
                     <p class="pb-3">Number of available seats:{{$available_seats}}</p>
-                    <p class="pb-3">Price in USD:{{$trip->priceusd}}</p>
-                    <p class="pb-3">Price in SY:{{$trip->pricesy}}</p>
+                    <p class="pb-3">Price:{{$trip->price}}</p>
                     
                 </div>
             </article>

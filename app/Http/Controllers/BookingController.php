@@ -48,8 +48,6 @@ class BookingController extends Controller
     public function payment(Request $request,Trip $trip)
     {
         $request->validate([
-            // 'seats' => 'required',
-             'currency' => 'required',
              'payment' => 'required'
          ]);
 
@@ -107,52 +105,28 @@ class BookingController extends Controller
             $translater = Translater::where('name',$request->translater)->first();
         }
         
-        if($request->currency == "SY")
-        {
             if($request->translater != 'Choose a Translater if You Want!')
             {
-              $totalpayment = ($trip->pricesy) + $translater->pricesy;
+              $totalpayment = $trip->price + $translater->price;
               if($coupon)
               {
                 $discount_amount = ($totalpayment * $coupon->discount_percentage) / 100;
                 $totalpayment = $totalpayment - $discount_amount;
               }
             }
+            else
+            {
             if($coupon)
               {
-                $totalpayment =  $trip->pricesy;
+                $totalpayment =  $trip->price;
                 $discount_amount = ($totalpayment * $coupon->discount_percentage) / 100;
                 $totalpayment = $totalpayment - $discount_amount;
               }
               else
               {
-                $totalpayment =  $trip->pricesy;
+                $totalpayment =  $trip->price;
               }
-        }
-        else
-        {
-            if($request->translater != 'Choose a Translater if You Want!')
-            {
-              $totalpayment = ($trip->priceusd) + $translater->priceusd;
-              if($coupon)
-              {
-                $discount_amount = ($totalpayment * $coupon->discount_percentage) / 100;
-                $totalpayment = $totalpayment - $discount_amount;
-              }
-             
             }
-            if($coupon)
-            {
-              $totalpayment = $trip->priceusd;
-              $discount_amount = ($totalpayment * $coupon->discount_percentage) / 100;
-              $totalpayment = $totalpayment - $discount_amount;
-            }
-            else
-            {
-               $totalpayment = $trip->priceusd;
-            }
-        }
-
         // if($request->translater != "Choose a Translater if You Want!")
         // {
         //     $translater = Translater->

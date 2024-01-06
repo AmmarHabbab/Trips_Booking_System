@@ -22,8 +22,7 @@
                 <th>seats</th>
                 <th>seats_taken</th>
                 <th>status</th>
-                <th>priceusd</th>
-                <th>pricesy</th>
+                <th>price</th>
                 <th>start_date</th>
                 <th>expiry_date</th>
                 <th>action</th>
@@ -47,8 +46,7 @@ $('#posts-table').DataTable({
              { data: 'seats', name: 'seats' },
              { data: 'seats_taken', name: 'seats_taken' },
              { data: 'status', name: 'status' },
-             { data: 'priceusd', name: 'priceusd' },
-             { data: 'pricesy', name: 'pricesy' },
+             { data: 'price', name: 'price' },
              { data: 'start_date', name: 'start_date' },
              { data: 'expiry_date', name: 'expiry_date' },
              { data: 'action', name: 'action' },

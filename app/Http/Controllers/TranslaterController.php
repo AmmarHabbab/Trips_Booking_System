@@ -35,7 +35,8 @@ class TranslaterController extends Controller
             'image' => 'required|mimes:jpg,jpeg,png,gif,svg|max:4096',
             'info' => 'required',
             'gender' => 'required',
-            'languages_spoken' => 'required'
+            'languages_spoken' => 'required',
+            'price'=>'required'
         ]);
 
         $img = $request->file('image');
@@ -49,6 +50,7 @@ class TranslaterController extends Controller
         $translater->info = $request->info;
         $translater->gender = $request->gender;
         $translater->languages_spoken = $request->languages_spoken;
+        $translater->price = $request->price;
         $translater->save();
 
         return response()->json(['message','saved successfuly']);

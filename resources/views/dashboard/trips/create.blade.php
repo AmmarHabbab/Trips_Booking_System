@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 
-    <title>Post Entry Form</title>
+    <title>Trip Entry Form</title>
 </head>
 <body class="bg-gray-100">
     <div class="w-full max-w-md mx-auto mt-10">

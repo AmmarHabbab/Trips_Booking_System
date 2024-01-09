@@ -51,6 +51,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/trips/cancel/{trip:id}',[TripController::class,'cancel'])->name('trips.cancel')->middleware('auth','admin');
     Route::get('/trips/alldatatables',[TripController::class,'gettripsdatatables'])->name('trips.all')->middleware('auth','admin');
     Route::get('/trips/all',[TripController::class,'alltripsdatatables'])->middleware('auth','admin');
+
+    Route::get('/trips/getopened',[TripController::class,'openedgettripsdatatables'])->name('trips.opened')->middleware('auth','cashier');
+    Route::get('/trips/opened',[TripController::class,'openedalltripsdatatables'])->middleware('auth','cashier');
+
     Route::get('/trips/chart',[BookingController::class,'mostbookedtrips'])->middleware('auth','admin');
     
     Route::put('/payment/confirm/{payment:id}',[BookingController::class,'confirm'])->name('payment.confirm')->middleware('auth','cashier');
@@ -58,6 +62,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/books/alldatatables',[BookingController::class,'getbooksdatatables'])->name('books.all')->middleware('auth','cashier');
     Route::get('/books/all',[BookingController::class,'allbooksdatatables'])->middleware('auth','cashier');
+
+    Route::get('/books/get/{trip:id}',[BookingController::class,'tripgetbooksdatatables'])->name('books.trip')->middleware('auth','cashier');
+    Route::get('/books/{trip:id}',[BookingController::class,'tripbooksdatatables'])->middleware('auth','cashier');
+
     Route::put('/books/attend/{booking:id}',[BookingController::class,'attend'])->name('booking.attend')->middleware('auth','cashier');
    
     Route::get('/',[PagesController::class,'dashboard']);

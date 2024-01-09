@@ -164,6 +164,7 @@ class BookingController extends Controller
             $coupon->status = 'used';
             $coupon->save();
             }
+            $trip->seats_taken+=1;
             return response()->json(['message','trip booked successfully please make sure you pay in our office in the next 2 days, amount of payment:'.$totalpayment]);
         }
         if($request->payment == "Syriatel Cash")
@@ -367,6 +368,7 @@ class BookingController extends Controller
     //     return response()->json(['message','cancel']);
     // }
 
+
     /**
      * Remove the specified resource from storage.
      */
@@ -473,7 +475,57 @@ class BookingController extends Controller
         ->rawColumns(['user_name','trip_name','trip_status','payment_id','payment_amount','payment_status','status','translater_name','action'])//,'action'
         ->make(true);
     }
-
+    public function tripbooksdatatables(Trip $trip)
+    {
+        return view('dashboard.books.trip',compact('trip')); 
+    }
+    public function tripgetbooksdatatables(Trip $trip)
+    {
+        $bookings = Booking::where('trip_id',$trip->id)->get();
+        return Datatables::of($bookings)
+        ->addIndexColumn()
+        ->addColumn('action',function($row){
+            return $btn = '
+            <form action="'.Route('dashboard.payment.confirm',$row->payment_id).'" method="POST">
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="_token" value="' . csrf_token() . '">
+            <button type="submit">Confirm</button>
+            </form>
+            <form action="'.Route('dashboard.payment.refund',$row->payment_id).'" method="POST">
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="_token" value="' . csrf_token() . '">
+            <button type="submit">Refund</button>
+            </form>
+            <form action="'.Route('dashboard.booking.attend',$row->id).'" method="POST">
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="_token" value="' . csrf_token() . '">
+            <button type="submit">Attend</button>
+            </form>';
+        })
+        ->addColumn('name',function($row){
+            return $row->users->name;  
+        })
+        ->addColumn('trip_id',function($row){
+            return $row->trips->id;  
+        })
+        ->addColumn('trip_name',function($row){
+            return $row->trips->name;  
+        })
+        ->addColumn('trip_status',function($row){
+            return $row->trips->status;  
+        })
+        ->addColumn('translater',function($row){
+            return optional($row->translaters)->name;
+        })
+        ->addColumn('payment_amount',function($row){
+            return $row->payments->amount;
+        })
+        ->addColumn('payment_status',function($row){
+            return $row->payments->status;
+        })
+        ->rawColumns(['user_name','trip_name','trip_status','payment_id','payment_amount','payment_status','status','translater_name','action'])//,'action'
+        ->make(true);
+    }
     public function mostbookedtrips()
     {
         $mostBookedTrips = Trip::withCount('books')

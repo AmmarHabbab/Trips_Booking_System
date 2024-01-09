@@ -93,7 +93,7 @@ class TripController extends Controller
         $request->validate([
             'name' => 'required',
             'info' => 'required',
-            'image' => 'mimes:jpeg,jpg,gif,svg,png|max:4096',
+            'image' => 'mimes:jpeg,jpg,gif,svg,jfif,png|max:4096',
             'area' => 'required',
             'seats' => 'required|numeric',
             'priceusd' => 'required|numeric',
@@ -209,6 +209,26 @@ class TripController extends Controller
             <input type="hidden" name="_method" value="PUT">
             <input type="hidden" name="_token" value="' . csrf_token() . '">
             </form>';
+        })
+        ->rawColumns(['name','info','area','seats','seats_taken','status','price','start_date','expiry_date','action']) //,'action'
+        ->make(true);
+    }
+
+    public function openedalltripsdatatables()
+    {
+        return view('dashboard.trips.trip'); 
+    }
+    public function openedgettripsdatatables()
+    {
+        $trips = Trip::where('status','res_open')
+        ->orWhere('status','res_over')
+        ->get();
+
+        return Datatables::of($trips)
+        ->addIndexColumn()
+        ->addColumn('action',function($row){
+            return $btn = '
+            <button><a href="'.route('dashboard.books.trip',$row->id).'">Show Bookings</a></button>';
         })
         ->rawColumns(['name','info','area','seats','seats_taken','status','price','start_date','expiry_date','action']) //,'action'
         ->make(true);
